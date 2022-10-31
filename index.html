@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1617px;
+            height: 822px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/camp_boundary_0.js"></script>
+        <script src="data/health_facility_1.js"></script>
+        <script src="data/latrine_bathroom_location_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:13, minZoom:1
+        }).fitBounds([[21.16758948870249,92.08489228542652],[21.232111220758767,92.21935006253902]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_camp_boundary_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['District'] !== null ? autolinker.link(feature.properties['District'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Upazila'] !== null ? autolinker.link(feature.properties['Upazila'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Settlement'] !== null ? autolinker.link(feature.properties['Settlement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Union'] !== null ? autolinker.link(feature.properties['Union'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name_Alias'] !== null ? autolinker.link(feature.properties['Name_Alias'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SSID'] !== null ? autolinker.link(feature.properties['SSID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SMSD__Cnam'] !== null ? autolinker.link(feature.properties['SMSD__Cnam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NPM_Name'] !== null ? autolinker.link(feature.properties['NPM_Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area_Acres'] !== null ? autolinker.link(feature.properties['Area_Acres'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PeriMe_Met'] !== null ? autolinker.link(feature.properties['PeriMe_Met'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Camp_Name'] !== null ? autolinker.link(feature.properties['Camp_Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area_SqM'] !== null ? autolinker.link(feature.properties['Area_SqM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_camp_boundary_0_0(feature) {
+            switch(String(feature.properties['Camp_Name'])) {
+                case 'Camp 10':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,4,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 11':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(6,5,24,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 12':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(17,12,48,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 13':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,17,74,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 17':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(48,17,100,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 18':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(67,15,117,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 19':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(84,20,125,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 1E':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(102,27,129,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 1W':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(119,33,130,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 20':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(137,40,129,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 20 Extension':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(154,46,128,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 2E':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(173,52,124,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 2W':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(191,58,118,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 3':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,65,112,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 4':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,76,103,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 4 Extension':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,90,95,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 5':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(245,109,92,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 6':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(250,130,95,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 7':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,151,105,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 8E':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,171,117,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 8W':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,192,133,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Camp 9':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,212,151,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kutupalong RC':
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,233,170,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_camp_boundary_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,253,191,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_camp_boundary_0');
+        map.getPane('pane_camp_boundary_0').style.zIndex = 400;
+        map.getPane('pane_camp_boundary_0').style['mix-blend-mode'] = 'normal';
+        var layer_camp_boundary_0 = new L.geoJson(json_camp_boundary_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_camp_boundary_0',
+            layerName: 'layer_camp_boundary_0',
+            pane: 'pane_camp_boundary_0',
+            onEachFeature: pop_camp_boundary_0,
+            style: style_camp_boundary_0_0,
+        });
+        bounds_group.addLayer(layer_camp_boundary_0);
+        map.addLayer(layer_camp_boundary_0);
+        function pop_health_facility_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_health_facility_1_0() {
+            return {
+                pane: 'pane_health_facility_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_health_facility_1');
+        map.getPane('pane_health_facility_1').style.zIndex = 401;
+        map.getPane('pane_health_facility_1').style['mix-blend-mode'] = 'normal';
+        var layer_health_facility_1 = new L.geoJson(json_health_facility_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_health_facility_1',
+            layerName: 'layer_health_facility_1',
+            pane: 'pane_health_facility_1',
+            onEachFeature: pop_health_facility_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_health_facility_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_health_facility_1);
+        map.addLayer(layer_health_facility_1);
+        function pop_latrine_bathroom_location_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Block'] !== null ? autolinker.link(feature.properties['Block'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name of st'] !== null ? autolinker.link(feature.properties['Name of st'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['No of latr'] !== null ? autolinker.link(feature.properties['No of latr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['No of bath'] !== null ? autolinker.link(feature.properties['No of bath'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GPS latitu'] !== null ? autolinker.link(feature.properties['GPS latitu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GPS longit'] !== null ? autolinker.link(feature.properties['GPS longit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Functional'] !== null ? autolinker.link(feature.properties['Functional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Condition'] !== null ? autolinker.link(feature.properties['Condition'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ORGANISATI'] !== null ? autolinker.link(feature.properties['ORGANISATI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Facility I'] !== null ? autolinker.link(feature.properties['Facility I'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Sector ID'] !== null ? autolinker.link(feature.properties['Sector ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Male (M)'] !== null ? autolinker.link(feature.properties['Male (M)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Female (F)'] !== null ? autolinker.link(feature.properties['Female (F)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['M/F block'] !== null ? autolinker.link(feature.properties['M/F block'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Common (M&'] !== null ? autolinker.link(feature.properties['Common (M&'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Elderly/ D'] !== null ? autolinker.link(feature.properties['Elderly/ D'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Function_1'] !== null ? autolinker.link(feature.properties['Function_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Super stru'] !== null ? autolinker.link(feature.properties['Super stru'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Privacy of'] !== null ? autolinker.link(feature.properties['Privacy of'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lockable f'] !== null ? autolinker.link(feature.properties['lockable f'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Female / m'] !== null ? autolinker.link(feature.properties['Female / m'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Female lat'] !== null ? autolinker.link(feature.properties['Female lat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclone ti'] !== null ? autolinker.link(feature.properties['Cyclone ti'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hand washi'] !== null ? autolinker.link(feature.properties['Hand washi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Function_2'] !== null ? autolinker.link(feature.properties['Function_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latrine ac'] !== null ? autolinker.link(feature.properties['Latrine ac'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Function_3'] !== null ? autolinker.link(feature.properties['Function_3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Function_4'] !== null ? autolinker.link(feature.properties['Function_4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Visibility'] !== null ? autolinker.link(feature.properties['Visibility'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Community'] !== null ? autolinker.link(feature.properties['Community'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Action to'] !== null ? autolinker.link(feature.properties['Action to'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Remarks'] !== null ? autolinker.link(feature.properties['Remarks'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_latrine_bathroom_location_2_0() {
+            return {
+                pane: 'pane_latrine_bathroom_location_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,145,145,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_latrine_bathroom_location_2');
+        map.getPane('pane_latrine_bathroom_location_2').style.zIndex = 402;
+        map.getPane('pane_latrine_bathroom_location_2').style['mix-blend-mode'] = 'normal';
+        var layer_latrine_bathroom_location_2 = new L.geoJson(json_latrine_bathroom_location_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_latrine_bathroom_location_2',
+            layerName: 'layer_latrine_bathroom_location_2',
+            pane: 'pane_latrine_bathroom_location_2',
+            onEachFeature: pop_latrine_bathroom_location_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_latrine_bathroom_location_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_latrine_bathroom_location_2);
+        map.addLayer(layer_latrine_bathroom_location_2);
+        setBounds();
+        var i = 0;
+        layer_camp_boundary_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Camp_Name'] !== null?String('<div style="color: #df3434; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Camp_Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_camp_boundary_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_camp_boundary_0]);
+        map.on("zoomend", function(){
+            resetLabels([layer_camp_boundary_0]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_camp_boundary_0]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_camp_boundary_0]);
+        });
+        </script>
+    </body>
+</html>
